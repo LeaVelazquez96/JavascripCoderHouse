@@ -31,3 +31,4 @@ do {
 } while (opcion == 'si');
 
   alert(`${ticket} Su total es de: $${total}`)
+  
