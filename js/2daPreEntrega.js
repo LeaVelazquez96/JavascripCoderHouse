@@ -4,12 +4,12 @@ const articulos = [
     {Nombre:'Toner Universal HP', Marca:'Generico', Precio:'5900'},
     {Nombre:'Toner Universal Xerox', Marca:'Generico', Precio:'6750'},
     {Nombre:'Toner Universal Brother', Marca:'Generico', Precio:'5900'},
-]
-const detalleTicket = [];
+] 
 let cantidad='';
 let total='';
 let opcion='';
 let agregar='';
+let carrito =[]
 
 console.log(articulos);
 
@@ -27,8 +27,10 @@ do{
 
     cantidad = parseInt(prompt('Ingrese Cantidad deseada'))
 
-    total = total + articulos[opcion - 1].Precio*cantidad;
+    total = total + articulos[opcion-1].Precio*cantidad;
 
     agregar= prompt('Desea agregar mas articulos?') 
 }while(agregar=='si')
-console.log('Su total es de $'+total )
+alert ('Gracias por su compra, en consola podra ver si ticket!' )
+
+alert(carrito)
