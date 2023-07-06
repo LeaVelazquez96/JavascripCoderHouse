@@ -6,10 +6,11 @@ const articulos = [
     {Nombre:'Toner Universal Brother', Marca:'Generico', Precio:'5900'},
 ] 
 let cantidad='';
-let total='';
+///let total=0;
 let opcion='';
 let agregar='';
-let carrito =[]
+
+const detalleFactura = [];
 
 console.log(articulos);
 
@@ -26,11 +27,13 @@ do{
 
 
     cantidad = parseInt(prompt('Ingrese Cantidad deseada'))
-
-    total = total + articulos[opcion-1].Precio*cantidad;
+    detalleFactura.push({nombre: articulos[opcion-1].Nombre, precioUnitario: articulos[opcion-1].Precio, cantidad, subtotal:articulos[opcion-1].Precio*cantidad});
+        
+    ///total = total + articulos[opcion-1].Precio*cantidad;
+    total= detalleFactura.reduce((total,itemFactura ) => total + itemFactura.precioUnitario*itemFactura.cantidad, 0);
 
     agregar= prompt('Desea agregar mas articulos?') 
 }while(agregar=='si')
+alert(`Su total es de ${total}`)
 alert ('Gracias por su compra, en consola podra ver si ticket!' )
 
-alert(carrito)
