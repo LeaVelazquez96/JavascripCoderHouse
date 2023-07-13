@@ -28,41 +28,50 @@ const total = document.getElementById('total');
 
 
 function traerItems() {
-    stock = JSON.parse(localStorage.getItem('stock')) || [] ;
-    carrito = JSON.parse(localStorage.getItem('carrito')) || [] ;
-
-    popularDropdown();
+    stock = JSON.parse(localStorage.getItem("stock")) || [];
+    carrito = JSON.parse(localStorage.getItem("carrito"))|| [];
+popularDropdown();
 }
 
-function popularDropdown()
-{
-    stock.forEach((producto,index) => {
-        let option = document.createElement('option');
-        option.textContent = producto.nombre;
-        option.value = index;
-        selectProductos.appendChild(option);
+function popularDropdown() {
+
+    stock.forEach(({nombre,precio},index) => {
+        let opcion = document.createElement("opcion");
+        opcion.textContent = `${nombre} : $${precio}`;
+        opcion.value = index;
+        selectProductos.appendChild(opcion);
     });
 }
-
-
-function actualizarTablaCarrito()
-{
-    tabla.innerHTML = '';
+function actualizarTablaCarrito() {
+    tabla.innerHTML ="";
     total.innerText = 0;
-    carrito.forEach((item) => {
-    newRow(item);
-    });
+    carrito.forEach((item)  =>{} );
 }
+
+function newRow(item){
+    const row = document.createElement("tr");
+    let td = document.createElement("td");
+    const poscarrito = carrito.indexOf(item);
+
+    td.textContent= poscarrito;
+    row.appendChild(td);
+
+    td.textContent= item.producto.nombre;
+    row.appendChild(td);
+
+    td=document.createElement("td");
+    td.textContent= item.cantidad;
+    row.appendChild(td);
+}
+
+
 
 
 
 function allEventListeners(){
 
     document.addEventListener('DOMContentLoaded', traerItems);
-
-    btnAgregar.addEventListener('submit', (e) =>
-{
-    e.preventDefault(); ///evito el refresque
-
+    btnAgregar.addEventListener('submit', (e) =>{e.preventDefault();
 });
 }
+allEventListeners();
