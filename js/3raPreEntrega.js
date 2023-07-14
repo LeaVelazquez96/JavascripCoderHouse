@@ -35,17 +35,19 @@ popularDropdown();
 
 function popularDropdown() {
 
-    stock.forEach(({nombre,precio},index) => {
-        let opcion = document.createElement("opcion");
-        opcion.textContent = `${nombre} : $${precio}`;
-        opcion.value = index;
-        selectProductos.appendChild(opcion);
+    stock.forEach(({nombre,marca,precio},index) => {
+        let option = document.createElement("option");
+        option.textContent = `${nombre} ${marca}  : $${precio}`;
+        option.value = index;
+        selectProductos.appendChild(option);
     });
 }
 function actualizarTablaCarrito() {
-    tabla.innerHTML ="";
+    tabla.innerHTML ='';
     total.innerText = 0;
-    carrito.forEach((item)  =>{} );
+    carrito.forEach((item)  =>{
+        newRow(item)
+    } );
 }
 
 function newRow(item){
@@ -53,15 +55,20 @@ function newRow(item){
     let td = document.createElement("td");
     const poscarrito = carrito.indexOf(item);
 
-    td.textContent= poscarrito;
-    row.appendChild(td);
 
-    td.textContent= item.producto.nombre;
+    td.textContent= `${item.producto.nombre} ${item.producto.marca}`;
     row.appendChild(td);
 
     td=document.createElement("td");
     td.textContent= item.cantidad;
     row.appendChild(td);
+
+    td=document.createElement("td");
+    td.textContent= `$${item.producto.precio}`;
+    row.appendChild(td);
+
+    tabla.appendChild(row);
+    total.textContent= carrito.reduce((acc,item) => acc + item.producto.precio * item.cantidad, 0);
 }
 
 
@@ -71,7 +78,13 @@ function newRow(item){
 function allEventListeners(){
 
     document.addEventListener('DOMContentLoaded', traerItems);
+
     btnAgregar.addEventListener('submit', (e) =>{e.preventDefault();
-});
+    const prodElegido = stock[+selectProductos.value];
+    const item = new Item (prodElegido,1);
+    carrito.push(item)
+    localStorage.setItem('carrito',JSON.stringify(carrito));
+    actualizarTablaCarrito()
+    });
 }
 allEventListeners();
